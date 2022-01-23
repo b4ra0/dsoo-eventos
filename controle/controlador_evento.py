@@ -3,7 +3,7 @@
 from limite.tela_evento import TelaEvento
 from modelo.evento import Evento
 
-class ControladorEventos:
+class ControladorEvento:
     def __init__(self, controlador_principal):
         self.__eventos = []
         self.__controlador_principal = controlador_principal
