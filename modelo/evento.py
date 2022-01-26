@@ -9,7 +9,7 @@ class Evento:
         self.__horario_inicio = horario_inicio
         self.__local = local
         self.__capacidade_max = capacidade_max
-        self.__organizadores = organizadores
+        self.__organizadores = Organizador #Aqui vai Pessoa?
         self.__participantes = None 
 
         @property
@@ -71,7 +71,7 @@ class Evento:
             return self.__participantes
   
         @participantes.setter
-        def participantes(self,participantes: Participante):
+        def participantes(self,participantes: Participante): #Pessoa também?
             if isinstance(participantes, Participante):
                 self.__participantes = participantes
 '''

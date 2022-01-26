@@ -27,19 +27,24 @@ class TelaEvento():
         organizadores = input("Organizadores do evento: ")
 
         return {"titulo": titulo, "data": data, "horario_inicio": horario_inicio, 
-                "local": local, capacidade_max: capacidade_max, organizadores: organizadores}
+                "local": local, capacidade_max: capacidade_max, organizadores: organizadores} #Organizadores n sei
 
     def mostra_evento(self):
-        print("TÍTULO DO EVENTO: ", )
-        print("DATA DO EVENTO: ", )
-        print("LOCAL DO EVENTO: ", )
-        print("CAPACIDADE MÁXIMA DO EVENTO: ", )
-        print("ORGANIZADORES DO EVENTO: ", )
-        print("PARTICIPANTES DO EVENTO: ", )
+        print("TÍTULO DO EVENTO: ", dados_evento["titulo"] )
+        print("DATA DO EVENTO: ", dados_evento["data"])
+        print("LOCAL DO EVENTO: ", dados_evento["local"])
+        print("CAPACIDADE MÁXIMA DO EVENTO: ", dados_evento["capacidade_max"])
+        print("ORGANIZADORES DO EVENTO: ", dados_evento["organizadores"])
+        print("PARTICIPANTES DO EVENTO: ", dados_evento["participantes"])
+        print("\n")
 
     def seleciona_evento(self):
-        nome_evento = input("Título do evento que deseja selecionar: ")
-        return nome_evento
+        titulo = input("Título do evento que deseja selecionar: ")
+        return titulo
+
+    def mostra_ranking(self):
+        print("RANKING DE EVENTOS POR PARTICIPANTES")
+        print(ranking, dados_evento["titulo"])
 
     def mostra_mensagem(self, msg):
         print(msg)
