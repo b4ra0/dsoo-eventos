@@ -25,10 +25,10 @@ class ControladorPessoa():
 
         if(pessoa is not None):
             novos_dados_pessoa = self.__tela_pessoa.pega_dados_pessoa()
-            pessoa.nome = novos_dados_pessoa["nome"]
-            pessoa.cpf = novos_dados_pessoa["cpf"]
-            pessoa.data_nascimento = novos_dados_pessoa["data_nascimento"]
-            pessoa.endereco = novos_dados_pessoa["endereco"]
+            pessoa._Pessoa__nome = novos_dados_pessoa["nome"]
+            pessoa._Pessoa__cpf = novos_dados_pessoa["cpf"]
+            pessoa._Pessoa__data_nascimento = novos_dados_pessoa["data_nascimento"]
+            pessoa._Pessoa__endereco = novos_dados_pessoa["endereco"]
             self.lista_pessoa()
         else:
             self.__tela_pessoa.mostra_mensagem("ATENÇÃO: Pessoa não existente")
