@@ -3,14 +3,16 @@ from modelo.participante import Participante
 
 class Evento:
 
-    def __init__(self, titulo: str, data: str, horario_inicio: str, local: str, capacidade_max: int, organizadores: Organizador):
+    def __init__(self, titulo: str, data: str, horario_inicio: str, local: str, capacidade_max: int, organizador: Organizador):
         self.__titulo = titulo
         self.__data = data
         self.__horario_inicio = horario_inicio
         self.__local = local
         self.__capacidade_max = capacidade_max
-        self.__organizadores = Organizador #Aqui vai Pessoa?
-        self.__participantes = None 
+        self.__organizador = organizador
+        #self.add_organizador(organizador) Dando erro
+        self.__organizadores = []
+        self.__participantes = [] 
 
         @property
         def titulo(self):
@@ -61,24 +63,23 @@ class Evento:
         def organizadores(self):
             return self.__organizadores
   
-        @organizadores.setter
-        def organizadores(self,organizadores: Organizador):
-            if isinstance(organizadores, Organizador):
-                self.__organizadores = organizadores
+        
+        def add_organizador(self,organizador: Organizador):
+            if isinstance(organizador, Organizador):
+                self.__organizadores.append(organizador)
+
+        def del_organizador(self,organizador: Organizador):
+            if isinstance(organizador, Organizador):
+                self.__organizadores.remove(organizador)    
 
         @property
         def participantes(self):
             return self.__participantes
-  
-        @participantes.setter
-        def participantes(self,participantes: Participante): #Pessoa também?
-            if isinstance(participantes, Participante):
-                self.__participantes = participantes
-'''
 
-def main():
-    teste_lindo = Evento("Pixel Init","05/01/2022","18:00", "Online", 12)
-    print(teste_lindo._Evento__titulo)
-main()
+        def add_participante(self, participante: Participante):
+            if isinstance(participante, Participante):
+                self.__participantes.append(participante)
 
-'''
+        def del_participante(self, participante: Participante):
+            if isinstance(participante, Participante):
+                self.__participantes.remove(participante)
