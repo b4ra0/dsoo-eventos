@@ -26,14 +26,10 @@ class TelaPessoa():
         print("DATA DE NASCIMENTO DA PESSOA: ", dados_pessoa["data_nascimento"])
         print("ENDEREÇO DA PESSOA: ", dados_pessoa["endereco"])
         print("\n")
-
-    
+        
     def seleciona_pessoa(self):
         nome = input("Nome da pessoa que deseja selecionar: ")
         return nome
     
     def mostra_mensagem(self, msg):
         print(msg)
-
-
-

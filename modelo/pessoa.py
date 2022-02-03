@@ -1,4 +1,4 @@
-from modelo.evento import Evento
+#from modelo.evento import Evento
 
 class Pessoa:
   def __init__(self, nome: str, cpf: int, data_nascimento: str, endereco: str):
@@ -32,10 +32,10 @@ class Pessoa:
     def data_nascimento(self, data_nascimento: str):
         self.__data_nascimento = data_nascimento
 
-    def add_evento(self,evento: Evento):
-        if isinstance(evento, Evento):
-            self.evento.append(evento)
+    #def add_evento(self,evento: Evento):
+       # if isinstance(evento, Evento):
+            #self.evento.append(evento)
 
-    def del_evento(self,evento: Evento):
-        if isinstance(evento, Evento):
-            self.evento.remove(evento)
+    #def del_evento(self,evento: Evento):
+        #if isinstance(evento, Evento):
+            #self.evento.remove(evento)

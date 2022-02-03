@@ -8,4 +8,3 @@ class TelaPresenca():
 
     opcao = int(input("Escolha a opcao: "))
     return opcao
-    

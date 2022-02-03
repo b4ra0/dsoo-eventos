@@ -46,7 +46,8 @@ class ControladorPessoa():
 
     def lista_pessoa(self):
         for pessoinha in self.__pessoas:
-            self.__tela_pessoa.mostra_pessoa({"cpf": pessoinha._Pessoa__cpf, "nome": pessoinha._Pessoa__nome, "data_nascimento": pessoinha._Pessoa__data_nascimento, "endereco": pessoinha._Pessoa__endereco})
+            self.__tela_pessoa.mostra_pessoa({"cpf": pessoinha._Pessoa__cpf, "nome": pessoinha._Pessoa__nome, 
+                                              "data_nascimento": pessoinha._Pessoa__data_nascimento, "endereco": pessoinha._Pessoa__endereco})
 
     def retornar(self):
         self.__controlador_principal.abre_tela()
