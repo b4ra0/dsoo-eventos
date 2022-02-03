@@ -1,12 +1,12 @@
 from . import Teste
-from pessoas import Pessoas
+from pessoa import Pessoa
 
-class participantes(Pessoas):
-  def __init__(self, vacina: bool, teste: Teste, cpf: int, nome: str, data_nascimento: str, endereco: str, eventos: Eventos):
-    super().__init__(cpf, nome, data_nascimento, endereco, eventos)
+class Participante(Pessoa):
+  def __init__(self, vacina: bool, cpf: int, nome: str, data_nascimento: str, endereco: str):
+    super().__init__(cpf, nome, data_nascimento, endereco)
     self.__vacina = vacina
-    self.__teste = Teste
-    self.__pessoa = Pessoas
+    self.__teste = None
+    self.__pessoa = Pessoa
 
     @property
     def vacina(self):
