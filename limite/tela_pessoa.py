@@ -2,7 +2,7 @@ class TelaPessoa():
     def tela_opcoes(self):
         print("-------- PESSOAS ----------")
         print("Escolha a opção")
-        print("1 - Incluir Pessoa")
+        print("1 - Adicionar Pessoa")
         print("2 - Alterar Pessoa")
         print("3 - Listar Pessoa")
         print("4 - Excluir Pessoa")

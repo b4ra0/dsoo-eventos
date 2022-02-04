@@ -28,18 +28,19 @@ class ControladorEvento:
         self.__eventos.append(evento)
 
     def remover_evento(self):
-        self.lista_eventos()
+        self.listar_eventos()
         titulo_evento = self.__tela_evento.seleciona_evento()
         evento = self.pega_evento_por_titulo(titulo_evento)
 
         if(evento is not None):
             self.__eventos.remove(evento)
-            self.lista_eventos()
+            self.__tela_evento.mostra_mensagem("O evento foi removido com sucesso")
+            self.listar_eventos()
         else:
             self.__tela_evento.mostra_mensagem("ATENÇÃO: Este evento não existe.")
 
     def alterar_evento(self):
-        self.lista_eventos()
+        self.listar_eventos()
         titulo_evento = self.__tela_evento.seleciona_evento()
         evento = self.pega_evento_por_titulo(titulo_evento)
 
@@ -51,11 +52,11 @@ class ControladorEvento:
             evento._Evento__local = novos_dados_evento["local"]
             evento._Evento__capacidade_max = novos_dados_evento["capacidade_max"]
             evento._Evento__organizador = novos_dados_evento["organizador"]
-            self.lista_eventos()
+            self.listar_eventos()
         else:
             self.__tela_evento.mostra_mensagem("ATENÇÃO: Este evento não existe.")
 
-    def lista_eventos(self):
+    def listar_eventos(self):
         if len(self.__eventos) != 0:
             for evento in self.__eventos:
                 self.__tela_evento.mostra_evento({"titulo": evento._Evento__titulo, "data": evento._Evento__data, 
@@ -77,22 +78,44 @@ class ControladorEvento:
 
         return eventos_ranking
 
-    def adiciona_organizador(self):
-        self.lista_eventos()
+    def adicionar_organizador(self): #Não funcional
+        self.listar_eventos()
         titulo_evento = self.__tela_evento.seleciona_evento()
         evento = self.pega_evento_por_titulo(titulo_evento)
-        #if evento is not None:
-            #organizador = self.__controlador_principal.controlador_pessoa.busca_pessoa()
-            #evento.add_organizador(organizador)
-        #else:
-           # self.__tela_evento.mostra_mensagem("ATENÇÃO: Esse evento não existe.")
+        if evento is not None:
+            organizador = self.__controlador_principal.controlador_pessoa.busca_pessoa()
+            evento.add_organizador(organizador)
+        else:
+           self.__tela_evento.mostra_mensagem("ATENÇÃO: Esse evento não existe.")
+    
+    def remover_organizador(self):
+        pass
+
+    def adicionar_participante(self):
+        pass
+
+    def remover_participante(self):
+        pass
 
     def abre_tela(self):
-        lista_opcoes = {1: self.adicionar_evento, 2:self.remover_evento, 3:self.alterar_evento, 4: 
-                             self.detalhes_evento, 5:self.lista_eventos, 6: self.relatório_ranking_evento, 0: self.retorna}
+        lista_opcoes = {1: self.adicionar_evento, 2:self.remover_evento, 3:self.alterar_evento, 
+        4:self.detalhes_evento, 5:self.listar_eventos, 6: self.relatório_ranking_evento, 
+        7: self.abre_tela_2, 0: self.retorna}
+
         continua = True
         while continua:
             lista_opcoes[self.__tela_evento.tela_opcoes()]()
 
+    def abre_tela_2(self):
+        lista_opcoes = {1: self.adicionar_organizador, 2:self.remover_organizador,
+         3:self.adicionar_participante, 4:self.adicionar_organizador, 0: self.retorna_2}
+
+        continua = True
+        while continua:
+            lista_opcoes[self.__tela_evento.tela_opcoes_2()]()
+
     def retorna(self):
         self.__controlador_principal.abre_tela()
+    
+    def retorna_2(self):
+        self.abre_tela()

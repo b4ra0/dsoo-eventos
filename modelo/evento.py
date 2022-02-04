@@ -8,9 +8,10 @@ class Evento:
         self.__data = data
         self.__horario_inicio = horario_inicio
         self.__local = local
+        #Ao adicionar um evento, ainda é possível atribuir um str à capacidade max
         self.__capacidade_max = capacidade_max
         self.__organizador = organizador
-        #self.add_organizador(organizador) Dando erro
+        #self.add_organizador() 
         self.__organizadores = []
         self.__participantes = [] 
 

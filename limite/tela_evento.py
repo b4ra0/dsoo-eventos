@@ -3,7 +3,6 @@ class TelaEvento():
     def __init__(self, controlador_evento):
         self.__controlador_evento = controlador_evento
 
-
     def tela_opcoes(self):
 
         print("-------- EVENTOS --------")
@@ -14,6 +13,20 @@ class TelaEvento():
         print("4 - Detalhe evento")
         print("5 - Listar eventos")
         print("6 - Ranking eventos")
+        print("7 - Pessoas dos eventos (+)")
+        print("0 - Retornar")
+
+        opcao = int(input("Escolha uma opção: "))
+        return opcao
+
+    def tela_opcoes_2(self):
+
+        print("-------- PESSOAS DOS EVENTOS --------")
+        print("")
+        print("1 - Adicionar organizador em evento")
+        print("2 - Remover organizador de evento")
+        print("3 - Adicionar participante em evento")
+        print("1 - Remover participante de evento")
         print("0 - Retornar")
 
         opcao = int(input("Escolha uma opção: "))
@@ -47,7 +60,6 @@ class TelaEvento():
     def mostra_ranking(self, ranking, dados_evento):
         print("RANKING DE EVENTOS POR PARTICIPANTES")
         print(ranking, dados_evento["titulo"])
-
 
     def mostra_mensagem(self, msg):
         print(msg)
