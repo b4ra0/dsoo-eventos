@@ -23,8 +23,11 @@ class ControladorEvento:
 
     def adicionar_evento(self):
         dados_evento = self.__tela_evento.pega_dados_evento()
+        print("Dados evento", dados_evento)
+        pessoa = self.__controlador_principal.controlador_pessoa.busca_pessoa(dados_evento["organizador"])
+        print("Pessoa", pessoa)
         evento = Evento(dados_evento["titulo"], dados_evento["data"], dados_evento["horario_inicio"], 
-                        dados_evento["local"], dados_evento["capacidade_max"], dados_evento["organizador"])
+                        dados_evento["local"], dados_evento["capacidade_max"], pessoa)
         self.__eventos.append(evento)
 
     def remover_evento(self):
@@ -74,27 +77,20 @@ class ControladorEvento:
                     anterior = eventos_ranking[eventos_ranking.index(evento_ranking)]
                     eventos_ranking[0] = evento
                     #ir reordenando a lista de eventos_ranking
-
-
         return eventos_ranking
 
     def adicionar_organizador(self): #Não funcional
         self.listar_eventos()
         titulo_evento = self.__tela_evento.seleciona_evento()
         evento = self.pega_evento_por_titulo(titulo_evento)
+        
         if evento is not None:
-            organizador = self.__controlador_principal.controlador_pessoa.busca_pessoa()
+            organizador = self.__controlador_principal.controlador_pessoa.busca_pessoa_pelo_nome()
             evento.add_organizador(organizador)
         else:
            self.__tela_evento.mostra_mensagem("ATENÇÃO: Esse evento não existe.")
     
     def remover_organizador(self):
-        pass
-
-    def adicionar_participante(self):
-        pass
-
-    def remover_participante(self):
         pass
 
     def abre_tela(self):
@@ -107,8 +103,7 @@ class ControladorEvento:
             lista_opcoes[self.__tela_evento.tela_opcoes()]()
 
     def abre_tela_2(self):
-        lista_opcoes = {1: self.adicionar_organizador, 2:self.remover_organizador,
-         3:self.adicionar_participante, 4:self.adicionar_organizador, 0: self.retorna_2}
+        lista_opcoes = {1: self.adicionar_organizador, 2:self.remover_organizador, 0: self.retorna_2}
 
         continua = True
         while continua:

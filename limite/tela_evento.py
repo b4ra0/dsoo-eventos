@@ -13,7 +13,7 @@ class TelaEvento():
         print("4 - Detalhe evento")
         print("5 - Listar eventos")
         print("6 - Ranking eventos")
-        print("7 - Pessoas dos eventos (+)")
+        print("7 - Organizadores dos eventos (+)")
         print("0 - Retornar")
 
         opcao = int(input("Escolha uma opção: "))
@@ -25,8 +25,6 @@ class TelaEvento():
         print("")
         print("1 - Adicionar organizador em evento")
         print("2 - Remover organizador de evento")
-        print("3 - Adicionar participante em evento")
-        print("1 - Remover participante de evento")
         print("0 - Retornar")
 
         opcao = int(input("Escolha uma opção: "))

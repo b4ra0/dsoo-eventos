@@ -13,12 +13,13 @@ class TelaPessoa():
 
     def pega_dados_pessoa(self):
         print("-------- DADOS PESSOA ----------")
+        tipo = input("Tipo da pessoa (1 - Participante, 2 - Organizador): ")
         nome = input("Nome: ")
         cpf = input("CPF: ")
         data_nascimento = input("Data de Nascimento: ")
         endereco = input("Endereço: ")
 
-        return {"nome": nome, "cpf": cpf, "data_nascimento": data_nascimento, "endereco": endereco}
+        return {"nome": nome, "cpf": cpf, "data_nascimento": data_nascimento, "endereco": endereco, "tipo": tipo}
 
     def mostra_pessoa(self, dados_pessoa):
         print("NOME DA PESSOA: ", dados_pessoa["nome"])

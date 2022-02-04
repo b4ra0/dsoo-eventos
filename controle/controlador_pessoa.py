@@ -1,4 +1,5 @@
 from limite.tela_pessoa import TelaPessoa
+from modelo.participante import Participante
 from modelo.pessoa import Pessoa
 
 class ControladorPessoa():
@@ -9,14 +10,27 @@ class ControladorPessoa():
 
     def busca_pessoa(self, nome: str):
         for pessoa in self.__pessoas:
+            print("Pessoa", pessoa)
             if(pessoa._Pessoa__nome == nome):
                 return pessoa
         return None
 
+    def busca_pessoa_pelo_nome(self):
+        nome = self.__tela_pessoa.seleciona_pessoa()
+        pessoa = self.busca_pessoa(nome)
+        if pessoa is not None:
+            return pessoa
+        else: 
+            self.__tela_pessoa.mostra_mensagem("ATENÇÃO: Pessoa não existente")
+
     def adicionar_pessoa(self):
+
         dados_pessoa = self.__tela_pessoa.pega_dados_pessoa()
-        pessoa = Pessoa(dados_pessoa["nome"], dados_pessoa["cpf"], dados_pessoa["data_nascimento"], dados_pessoa["endereco"])
-        self.__pessoas.append(pessoa)
+        #verificar se já existe outra pessoa com o nome
+        if dados_pessoa["tipo"] == "1":
+
+            pessoa = Participante(dados_pessoa["nome"], dados_pessoa["cpf"], dados_pessoa["data_nascimento"], dados_pessoa["endereco"])
+            self.__pessoas.append(pessoa) #vacina: bool, cpf: int, nome: str, data_nascimento: str, endereco: str
 
     def alterar_pessoa(self):
         self.listar_pessoa()
@@ -36,7 +50,7 @@ class ControladorPessoa():
     def remover_pessoa(self):
         self.listar_pessoa()
         nome_pessoa = self.__tela_pessoa.seleciona_pessoa()
-        pessoa = self.busca_pessoa(nome_pessoa)
+        pessoa = self.busca_pessoa(nome_pessoa) #if
 
         if(pessoa is not None):
             self.__pessoas.remove(pessoa)
@@ -53,6 +67,8 @@ class ControladorPessoa():
                                                 "endereco": pessoa._Pessoa__endereco})
         else:
             self.__tela_pessoa.mostra_mensagem("ATENÇÃO: Não existe nenhuma pessoa.")
+
+            #Lista participantes e organizadores
 
     def retornar(self):
         self.__controlador_principal.abre_tela()

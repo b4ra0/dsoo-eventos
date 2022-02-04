@@ -11,8 +11,8 @@ class Evento:
         #Ao adicionar um evento, ainda é possível atribuir um str à capacidade max
         self.__capacidade_max = capacidade_max
         self.__organizador = organizador
-        #self.add_organizador() 
         self.__organizadores = []
+        self.__organizadores.append(organizador)
         self.__participantes = [] 
 
         @property
@@ -63,7 +63,6 @@ class Evento:
         @property
         def organizadores(self):
             return self.__organizadores
-  
         
         def add_organizador(self,organizador: Organizador):
             if isinstance(organizador, Organizador):
