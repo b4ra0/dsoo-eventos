@@ -1,12 +1,18 @@
-from modelo.evento import Evento
+#from modelo.evento import Evento
 
 class Pessoa:
-  def __init__(self, nome: str, cpf: int, data_nascimento: str, endereco: str):
+  def __init__(self, tipo: str, nome: str, cpf: int, data_nascimento: str, endereco: str, vacina: bool):
+    self.__tipo = tipo
     self.__nome = nome
     self.__cpf = cpf
     self.__data_nascimento = data_nascimento
     self.__endereco = endereco
     self.__evento = []
+    self.__vacina = vacina
+
+    @property
+    def tipo(self):
+        return self.__tipo
 
     @property
     def nome(self):
@@ -20,6 +26,10 @@ class Pessoa:
     def data_nascimento(self):
         return self.__data_nascimento
 
+    @tipo.setter
+    def tipo(self, tipo: str):
+        self.__tipo = tipo
+
     @nome.setter
     def nome(self, nome: str):
         self.__nome = nome
@@ -32,10 +42,10 @@ class Pessoa:
     def data_nascimento(self, data_nascimento: str):
         self.__data_nascimento = data_nascimento
 
-    def add_evento(self,evento: Evento):
-        if isinstance(evento, Evento):
-            self.evento.append(evento)
+    #def add_evento(self,evento: Evento):
+       # if isinstance(evento, Evento):
+            #self.evento.append(evento)
 
-    def del_evento(self,evento: Evento):
-        if isinstance(evento, Evento):
-            self.evento.remove(evento)
+    #def del_evento(self,evento: Evento):
+        #if isinstance(evento, Evento):
+            #self.evento.remove(evento)

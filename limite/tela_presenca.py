@@ -6,6 +6,9 @@ class TelaPresenca():
     print("2 - Adicionar saída")
     print("0 - Retornar")
 
-    opcao = int(input("Escolha a opcao: "))
+    opcao = int(input("Escolha a opção: "))
     return opcao
     
+  def seleciona_pessoa(self):
+    nome = input("Nome da pessoa que deseja selecionar: ")
+    return nome

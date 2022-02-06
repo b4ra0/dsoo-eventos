@@ -1,9 +1,8 @@
-from . import Teste
-from pessoa import Pessoa
+from modelo.pessoa import Pessoa
 
 class Participante(Pessoa):
-  def __init__(self, vacina: bool, cpf: int, nome: str, data_nascimento: str, endereco: str):
-    super().__init__(cpf, nome, data_nascimento, endereco)
+  def __init__(self,tipo: str, nome: str, cpf: int, data_nascimento: str, endereco: str, vacina: bool):
+    super().__init__(tipo, nome, cpf, data_nascimento, endereco, vacina)
     self.__vacina = vacina
     self.__teste = None
     self.__pessoa = Pessoa
@@ -20,7 +19,7 @@ class Participante(Pessoa):
     def vacina(self, vacina: bool):
         self.__vacina = vacina
 
-    @teste.setter
-    def teste(self, teste: Teste):
-        if (isinstance(teste, Teste)):
-            self.__teste = teste
+    #@teste.setter
+    #def teste(self, teste: Teste):
+        #if (isinstance(teste, Teste)):
+            #self.__teste = teste
