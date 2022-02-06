@@ -26,11 +26,10 @@ class ControladorPessoa():
     def adicionar_pessoa(self):
 
         dados_pessoa = self.__tela_pessoa.pega_dados_pessoa()
+        print(dados_pessoa)
         #verificar se já existe outra pessoa com o nome
-        if dados_pessoa["tipo"] == "1":
-
-            pessoa = Participante(dados_pessoa["nome"], dados_pessoa["cpf"], dados_pessoa["data_nascimento"], dados_pessoa["endereco"])
-            self.__pessoas.append(pessoa) #vacina: bool, cpf: int, nome: str, data_nascimento: str, endereco: str
+        pessoa = Participante(dados_pessoa["tipo"], dados_pessoa["nome"], dados_pessoa["cpf"], dados_pessoa["data_nascimento"], dados_pessoa["endereco"], dados_pessoa["vacina"])
+        self.__pessoas.append(pessoa) #vacina: bool, cpf: int, nome: str, data_nascimento: str, endereco: str
 
     def alterar_pessoa(self):
         self.listar_pessoa()
@@ -39,10 +38,12 @@ class ControladorPessoa():
 
         if(pessoa is not None):
             novos_dados_pessoa = self.__tela_pessoa.pega_dados_pessoa()
+            pessoa._Pessoa__tipo = novos_dados_pessoa["tipo"]
             pessoa._Pessoa__nome = novos_dados_pessoa["nome"]
             pessoa._Pessoa__cpf = novos_dados_pessoa["cpf"]
             pessoa._Pessoa__data_nascimento = novos_dados_pessoa["data_nascimento"]
             pessoa._Pessoa__endereco = novos_dados_pessoa["endereco"]
+            pessoa._Pessoa__vacina = novos_dados_pessoa["vacina"]
             self.listar_pessoa()
         else:
             self.__tela_pessoa.mostra_mensagem("ATENÇÃO: Pessoa não existente")
@@ -59,12 +60,13 @@ class ControladorPessoa():
         else:
             self.__tela_pessoa.mostra_mensagem("ATENÇÃO: Pessoa não existente")
 
+
     def listar_pessoa(self):
         if len(self.__pessoas) != 0:
             for pessoa in self.__pessoas:
-                self.__tela_pessoa.mostra_pessoa({"cpf": pessoa._Pessoa__cpf, "nome": pessoa._Pessoa__nome, 
+                self.__tela_pessoa.mostra_pessoa({"tipo": pessoa._Pessoa__tipo, "cpf": pessoa._Pessoa__cpf, "nome": pessoa._Pessoa__nome, 
                                                 "data_nascimento": pessoa._Pessoa__data_nascimento, 
-                                                "endereco": pessoa._Pessoa__endereco})
+                                                "endereco": pessoa._Pessoa__endereco, "vacina": pessoa._Pessoa__vacina})
         else:
             self.__tela_pessoa.mostra_mensagem("ATENÇÃO: Não existe nenhuma pessoa.")
 

@@ -1,5 +1,6 @@
 from limite.tela_evento import TelaEvento
 from modelo.evento import Evento
+from modelo import pessoa
 
 class ControladorEvento:
     def __init__(self, controlador_principal):
@@ -23,11 +24,13 @@ class ControladorEvento:
 
     def adicionar_evento(self):
         dados_evento = self.__tela_evento.pega_dados_evento()
+
         print("Dados evento", dados_evento)
         pessoa = self.__controlador_principal.controlador_pessoa.busca_pessoa(dados_evento["organizador"])
-        print("Pessoa", pessoa)
+        #ver situação do nome errado
+        print("Pessoa", pessoa._Pessoa__nome)
         evento = Evento(dados_evento["titulo"], dados_evento["data"], dados_evento["horario_inicio"], 
-                        dados_evento["local"], dados_evento["capacidade_max"], pessoa)
+                        dados_evento["local"], dados_evento["capacidade_max"], pessoa._Pessoa__nome)
         self.__eventos.append(evento)
 
     def remover_evento(self):
@@ -54,7 +57,7 @@ class ControladorEvento:
             evento._Evento__horario_inicio = novos_dados_evento["horario_inicio"]
             evento._Evento__local = novos_dados_evento["local"]
             evento._Evento__capacidade_max = novos_dados_evento["capacidade_max"]
-            evento._Evento__organizador = novos_dados_evento["organizador"]
+            evento._Evento__organizador = pessoa._Pessoa__nome
             self.listar_eventos()
         else:
             self.__tela_evento.mostra_mensagem("ATENÇÃO: Este evento não existe.")
@@ -86,7 +89,7 @@ class ControladorEvento:
         
         if evento is not None:
             organizador = self.__controlador_principal.controlador_pessoa.busca_pessoa_pelo_nome()
-            evento.add_organizador(organizador)
+            self.__evento.add_organizador(organizador)
         else:
            self.__tela_evento.mostra_mensagem("ATENÇÃO: Esse evento não existe.")
     

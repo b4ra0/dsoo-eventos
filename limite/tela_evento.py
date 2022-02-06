@@ -1,4 +1,6 @@
-class TelaEvento():
+from limite.tela_abstrata import TelaAbstrata
+
+class TelaEvento(TelaAbstrata):
 
     def __init__(self, controlador_evento):
         self.__controlador_evento = controlador_evento
@@ -16,7 +18,7 @@ class TelaEvento():
         print("7 - Organizadores dos eventos (+)")
         print("0 - Retornar")
 
-        opcao = int(input("Escolha uma opção: "))
+        opcao = self.le_num_inteiro("Escolha uma opção: ", [1, 2, 3, 4, 5, 6, 7 , 0])
         return opcao
 
     def tela_opcoes_2(self):
@@ -27,8 +29,13 @@ class TelaEvento():
         print("2 - Remover organizador de evento")
         print("0 - Retornar")
 
-        opcao = int(input("Escolha uma opção: "))
+        opcao = self.le_num_inteiro("Escolha uma opção: ", [1, 2, 0])
         return opcao
+
+    def le_num_inteiro(self, mensagem: str = "", inteiros_validos=None):
+        return super().le_num_inteiro(mensagem, inteiros_validos)
+
+#---------------------------------------------------------------------------------
 
     def pega_dados_evento(self):
         print("-------- DADOS EVENTO --------")

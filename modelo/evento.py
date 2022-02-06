@@ -1,5 +1,6 @@
 from modelo.organizador import Organizador
 from modelo.participante import Participante
+from modelo.pessoa import Pessoa
 
 class Evento:
 
@@ -13,7 +14,7 @@ class Evento:
         self.__organizador = organizador
         self.__organizadores = []
         self.__organizadores.append(organizador)
-        self.__participantes = [] 
+        self.__participantes = []
 
         @property
         def titulo(self):
@@ -64,8 +65,8 @@ class Evento:
         def organizadores(self):
             return self.__organizadores
         
-        def add_organizador(self,organizador: Organizador):
-            if isinstance(organizador, Organizador):
+        def add_organizador(self,organizador: Pessoa):
+            if isinstance(organizador, Pessoa):
                 self.__organizadores.append(organizador)
 
         def del_organizador(self,organizador: Organizador):

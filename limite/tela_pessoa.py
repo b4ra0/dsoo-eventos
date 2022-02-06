@@ -1,4 +1,7 @@
-class TelaPessoa():
+from limite.tela_abstrata import TelaAbstrata
+
+class TelaPessoa(TelaAbstrata):
+
     def tela_opcoes(self):
         print("-------- PESSOAS ----------")
         print("Escolha a opção")
@@ -8,8 +11,11 @@ class TelaPessoa():
         print("4 - Excluir Pessoa")
         print("0 - Retornar")
 
-        opcao = int(input("Escolha a opção: "))
+        opcao = self.le_num_inteiro("Escolha uma opção: ", [1, 2, 3, 4, 0])
         return opcao
+
+    def le_num_inteiro(self, mensagem: str = "", inteiros_validos=None):
+        return super().le_num_inteiro(mensagem, inteiros_validos)
 
     def pega_dados_pessoa(self):
         print("-------- DADOS PESSOA ----------")
@@ -18,14 +24,17 @@ class TelaPessoa():
         cpf = input("CPF: ")
         data_nascimento = input("Data de Nascimento: ")
         endereco = input("Endereço: ")
+        vacina = input("Vacina (0: False - 1: True): ")
 
-        return {"nome": nome, "cpf": cpf, "data_nascimento": data_nascimento, "endereco": endereco, "tipo": tipo}
+        return {"tipo": tipo, "nome": nome, "cpf": cpf, "data_nascimento": data_nascimento, 
+                "endereco": endereco, "vacina": vacina}
 
     def mostra_pessoa(self, dados_pessoa):
         print("NOME DA PESSOA: ", dados_pessoa["nome"])
         print("CPF DA PESSOA: ", dados_pessoa["cpf"])
         print("DATA DE NASCIMENTO DA PESSOA: ", dados_pessoa["data_nascimento"])
         print("ENDEREÇO DA PESSOA: ", dados_pessoa["endereco"])
+        print("SITUAÇÃO DE VACINA: ", dados_pessoa["vacina"])
         print("\n")
         
     def seleciona_pessoa(self):
