@@ -76,7 +76,7 @@ class ControladorEvento:
         else:
             self.__tela_evento.mostra_mensagem("ATENÇÃO: Não existe nenhum evento.")
 
-    def relatório_ranking_evento(self):
+    def relatório_ranking_evento(self): #Alterar para pegar por participantes e não organizadores
         if len(self.__eventos) != 0:
             ranking = 0
             lista_ranking = []
@@ -144,7 +144,6 @@ class ControladorEvento:
 
         for organizador in lista_organizadores:
             lista_nomes.append(organizador._Pessoa__nome) 
-            print(lista_nomes)
 
         return lista_nomes
 
