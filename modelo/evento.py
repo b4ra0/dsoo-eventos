@@ -1,5 +1,6 @@
 from modelo.organizador import Organizador
 from modelo.participante import Participante
+from modelo.pessoa import Pessoa
 
 class Evento:
 
@@ -8,11 +9,12 @@ class Evento:
         self.__data = data
         self.__horario_inicio = horario_inicio
         self.__local = local
+        #Ao adicionar um evento, ainda é possível atribuir um str à capacidade max
         self.__capacidade_max = capacidade_max
         self.__organizador = organizador
-        #self.add_organizador(organizador) Dando erro
         self.__organizadores = []
-        self.__participantes = [] 
+        self.__organizadores.append(organizador)
+        self.__participantes = []
 
         @property
         def titulo(self):
@@ -62,10 +64,9 @@ class Evento:
         @property
         def organizadores(self):
             return self.__organizadores
-  
         
-        def add_organizador(self,organizador: Organizador):
-            if isinstance(organizador, Organizador):
+        def add_organizador(self,organizador: Pessoa):
+            if isinstance(organizador, Pessoa):
                 self.__organizadores.append(organizador)
 
         def del_organizador(self,organizador: Organizador):
