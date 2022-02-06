@@ -1,4 +1,5 @@
 from limite.tela_abstrata import TelaAbstrata
+from modelo import evento
 
 class TelaEvento(TelaAbstrata):
 
@@ -23,7 +24,7 @@ class TelaEvento(TelaAbstrata):
 
     def tela_opcoes_2(self):
 
-        print("-------- PESSOAS DOS EVENTOS --------")
+        print("-------- ORGANIZADORES DOS EVENTOS --------")
         print("")
         print("1 - Adicionar organizador em evento")
         print("2 - Remover organizador de evento")
@@ -47,15 +48,27 @@ class TelaEvento(TelaAbstrata):
         organizadores = input("Organizadores do evento: ")
 
         return {"titulo": titulo, "data": data, "horario_inicio": horario_inicio, 
-                "local": local, "capacidade_max": capacidade_max, "organizador": organizadores}
+                "local": local, "capacidade_max": capacidade_max, "organizadores": organizadores}
+
+    def altera_dados_evento(self):
+        print("-------- ALTERAR DADOS DO EVENTO --------")
+        titulo = input("Título do evento: ")
+        data = input("Data do evento: ")
+        horario_inicio = input("Horário de início do evento: ")
+        local = input("Local do evento: ")
+        capacidade_max = input("Capacidade máxima do evento: ")
+
+        return {"titulo": titulo, "data": data, "horario_inicio": horario_inicio, 
+                "local": local, "capacidade_max": capacidade_max}
 
     def mostra_evento(self, dados_evento):
+
         print("TÍTULO DO EVENTO: ", dados_evento["titulo"] )
         print("DATA DO EVENTO: ", dados_evento["data"])
         print("LOCAL DO EVENTO: ", dados_evento["local"])
         print("CAPACIDADE MÁXIMA DO EVENTO: ", dados_evento["capacidade_max"])
-        print("ORGANIZADORES DO EVENTO: ", dados_evento["organizador"])
-        #print("PARTICIPANTES DO EVENTO: ", dados_evento["participantes"])
+        print("ORGANIZADORES DO EVENTO: ", ', '.join(dados_evento["organizadores"]))
+        #print("PARTICIPANTES DO EVENTO: ",  ', '.join(dados_evento["participantes"]))
         print("\n")
 
     def seleciona_evento(self):

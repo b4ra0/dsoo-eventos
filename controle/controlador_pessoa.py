@@ -10,7 +10,6 @@ class ControladorPessoa():
 
     def busca_pessoa(self, nome: str):
         for pessoa in self.__pessoas:
-            print("Pessoa", pessoa)
             if(pessoa._Pessoa__nome == nome):
                 return pessoa
         return None
@@ -26,10 +25,11 @@ class ControladorPessoa():
     def adicionar_pessoa(self):
 
         dados_pessoa = self.__tela_pessoa.pega_dados_pessoa()
-        print(dados_pessoa)
         #verificar se já existe outra pessoa com o nome
-        pessoa = Participante(dados_pessoa["tipo"], dados_pessoa["nome"], dados_pessoa["cpf"], dados_pessoa["data_nascimento"], dados_pessoa["endereco"], dados_pessoa["vacina"])
-        self.__pessoas.append(pessoa) #vacina: bool, cpf: int, nome: str, data_nascimento: str, endereco: str
+        pessoa = Participante(dados_pessoa["tipo"], dados_pessoa["nome"], dados_pessoa["cpf"], 
+                              dados_pessoa["data_nascimento"], dados_pessoa["endereco"], dados_pessoa["vacina"])
+
+        self.__pessoas.append(pessoa)
 
     def alterar_pessoa(self):
         self.listar_pessoa()
@@ -64,9 +64,9 @@ class ControladorPessoa():
     def listar_pessoa(self):
         if len(self.__pessoas) != 0:
             for pessoa in self.__pessoas:
-                self.__tela_pessoa.mostra_pessoa({"tipo": pessoa._Pessoa__tipo, "cpf": pessoa._Pessoa__cpf, "nome": pessoa._Pessoa__nome, 
-                                                "data_nascimento": pessoa._Pessoa__data_nascimento, 
-                                                "endereco": pessoa._Pessoa__endereco, "vacina": pessoa._Pessoa__vacina})
+                self.__tela_pessoa.mostra_pessoa({"tipo": pessoa._Pessoa__tipo, "cpf": pessoa._Pessoa__cpf, 
+                                                  "nome": pessoa._Pessoa__nome, "data_nascimento": pessoa._Pessoa__data_nascimento, 
+                                                  "endereco": pessoa._Pessoa__endereco, "vacina": pessoa._Pessoa__vacina})
         else:
             self.__tela_pessoa.mostra_mensagem("ATENÇÃO: Não existe nenhuma pessoa.")
 
@@ -76,7 +76,8 @@ class ControladorPessoa():
         self.__controlador_principal.abre_tela()
 
     def abre_tela(self):
-        lista_opcoes = {1: self.adicionar_pessoa, 2: self.alterar_pessoa, 3: self.listar_pessoa, 4: self.remover_pessoa, 0: self.retornar}
+        lista_opcoes = {1: self.adicionar_pessoa, 2: self.alterar_pessoa, 
+                        3: self.listar_pessoa, 4: self.remover_pessoa, 0: self.retornar}
         continua = True
         while continua:
             lista_opcoes[self.__tela_pessoa.tela_opcoes()]()

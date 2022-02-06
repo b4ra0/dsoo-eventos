@@ -8,6 +8,7 @@ class ControladorEvento:
         self.__controlador_principal = controlador_principal
         self.__tela_evento = TelaEvento(self)
 
+
     def pega_evento_por_titulo(self, titulo: str):
         for evento in self.__eventos:
             if(evento._Evento__titulo == titulo):
@@ -17,20 +18,20 @@ class ControladorEvento:
     def detalhes_evento(self):
         titulo_evento = self.__tela_evento.seleciona_evento()
         evento = self.pega_evento_por_titulo(titulo_evento)
+        organizadores = self.nomes_organizadores(evento)
         self.__tela_evento.mostra_evento({"titulo": evento._Evento__titulo, "data": evento._Evento__data, 
                                           "horario_inicio": evento._Evento__horario_inicio, 
                                           "local": evento._Evento__local, "capacidade_max": evento._Evento__capacidade_max,
-                                          "organizador": evento._Evento__organizador})
+                                          "organizadores": organizadores})
 
     def adicionar_evento(self):
         dados_evento = self.__tela_evento.pega_dados_evento()
 
-        print("Dados evento", dados_evento)
-        pessoa = self.__controlador_principal.controlador_pessoa.busca_pessoa(dados_evento["organizador"])
+        pessoa = self.__controlador_principal.controlador_pessoa.busca_pessoa(dados_evento["organizadores"])
         #ver situação do nome errado
-        print("Pessoa", pessoa._Pessoa__nome)
+        
         evento = Evento(dados_evento["titulo"], dados_evento["data"], dados_evento["horario_inicio"], 
-                        dados_evento["local"], dados_evento["capacidade_max"], pessoa._Pessoa__nome)
+                        dados_evento["local"], dados_evento["capacidade_max"], pessoa)
         self.__eventos.append(evento)
 
     def remover_evento(self):
@@ -51,13 +52,12 @@ class ControladorEvento:
         evento = self.pega_evento_por_titulo(titulo_evento)
 
         if(evento is not None):
-            novos_dados_evento = self.__tela_evento.pega_dados_evento()
+            novos_dados_evento = self.__tela_evento.altera_dados_evento()
             evento._Evento__titulo = novos_dados_evento["titulo"]
             evento._Evento__data = novos_dados_evento["data"]
             evento._Evento__horario_inicio = novos_dados_evento["horario_inicio"]
             evento._Evento__local = novos_dados_evento["local"]
             evento._Evento__capacidade_max = novos_dados_evento["capacidade_max"]
-            evento._Evento__organizador = pessoa._Pessoa__nome
             self.listar_eventos()
         else:
             self.__tela_evento.mostra_mensagem("ATENÇÃO: Este evento não existe.")
@@ -65,10 +65,12 @@ class ControladorEvento:
     def listar_eventos(self):
         if len(self.__eventos) != 0:
             for evento in self.__eventos:
+                lista_nomes = self.nomes_organizadores(evento)
+                print(lista_nomes)
                 self.__tela_evento.mostra_evento({"titulo": evento._Evento__titulo, "data": evento._Evento__data, 
                                                   "horario_inicio": evento._Evento__horario_inicio, 
                                                   "local": evento._Evento__local, "capacidade_max": evento._Evento__capacidade_max,
-                                                  "organizador": evento._Evento__organizador})
+                                                  "organizadores": lista_nomes})
         else:
             self.__tela_evento.mostra_mensagem("ATENÇÃO: Não existe nenhum evento.")
 
@@ -82,19 +84,60 @@ class ControladorEvento:
                     #ir reordenando a lista de eventos_ranking
         return eventos_ranking
 
-    def adicionar_organizador(self): #Não funcional
+#------------------------------------- ORGANIZADORES --------------------------------------
+
+    def adicionar_organizador(self):
         self.listar_eventos()
         titulo_evento = self.__tela_evento.seleciona_evento()
         evento = self.pega_evento_por_titulo(titulo_evento)
-        
+
         if evento is not None:
+            lista = evento._Evento__organizadores
             organizador = self.__controlador_principal.controlador_pessoa.busca_pessoa_pelo_nome()
-            self.__evento.add_organizador(organizador)
+
+            if organizador is not None:
+                if organizador not in lista: 
+                    evento._Evento__organizadores.append(organizador)
+                    self.__tela_evento.mostra_mensagem("Organizador adicionado com sucesso.")
+                else:
+                    self.__tela_evento.mostra_mensagem("ATENÇÃO: Esta pessoa já é organizadora deste evento.")
+            else:
+                self.adicionar_organizador()
         else:
            self.__tela_evento.mostra_mensagem("ATENÇÃO: Esse evento não existe.")
+           self.adicionar_organizador()
     
     def remover_organizador(self):
-        pass
+        self.listar_eventos()
+        titulo_evento = self.__tela_evento.seleciona_evento()
+        evento = self.pega_evento_por_titulo(titulo_evento)
+
+        if evento is not None:
+            lista = evento._Evento__organizadores
+            organizador = self.__controlador_principal.controlador_pessoa.busca_pessoa_pelo_nome()
+
+            if organizador is not None:
+                if organizador in lista: 
+                    evento._Evento__organizadores.remove(organizador)
+                    self.__tela_evento.mostra_mensagem("Organizador removido com sucesso.")
+                else:
+                    self.__tela_evento.mostra_mensagem("ATENÇÃO: Esta pessoa não é organizadora deste evento.")
+            else:
+                self.remover_organizador()
+        else:
+           self.__tela_evento.mostra_mensagem("ATENÇÃO: Esse evento não existe.")
+           self.remover_organizador()
+
+    def nomes_organizadores(self, evento):
+        lista_organizadores = evento._Evento__organizadores
+        lista_nomes = []
+        print(lista_organizadores)
+        for organizador in lista_organizadores:
+            lista_nomes.append(organizador._Pessoa__nome) 
+            print(lista_nomes)
+        return lista_nomes
+
+#------------------------------------ TELA --------------------------------------
 
     def abre_tela(self):
         lista_opcoes = {1: self.adicionar_evento, 2:self.remover_evento, 3:self.alterar_evento, 

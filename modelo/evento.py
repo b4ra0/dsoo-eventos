@@ -4,7 +4,7 @@ from modelo.pessoa import Pessoa
 
 class Evento:
 
-    def __init__(self, titulo: str, data: str, horario_inicio: str, local: str, capacidade_max: int, organizador: Organizador):
+    def __init__(self, titulo: str, data: str, horario_inicio: str, local: str, capacidade_max: int, organizador: Pessoa):
         self.__titulo = titulo
         self.__data = data
         self.__horario_inicio = horario_inicio
@@ -65,22 +65,23 @@ class Evento:
         def organizadores(self):
             return self.__organizadores
         
+        #Não está sendo utilizado
         def add_organizador(self,organizador: Pessoa):
             if isinstance(organizador, Pessoa):
                 self.__organizadores.append(organizador)
 
-        def del_organizador(self,organizador: Organizador):
-            if isinstance(organizador, Organizador):
+        def del_organizador(self,organizador: Pessoa):
+            if isinstance(organizador, Pessoa):
                 self.__organizadores.remove(organizador)    
 
         @property
         def participantes(self):
             return self.__participantes
 
-        def add_participante(self, participante: Participante):
-            if isinstance(participante, Participante):
+        def add_participante(self, participante: Pessoa):
+            if isinstance(participante, Pessoa):
                 self.__participantes.append(participante)
 
-        def del_participante(self, participante: Participante):
-            if isinstance(participante, Participante):
+        def del_participante(self, participante: Pessoa):
+            if isinstance(participante, Pessoa):
                 self.__participantes.remove(participante)
