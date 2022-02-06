@@ -8,7 +8,6 @@ class ControladorEvento:
         self.__controlador_principal = controlador_principal
         self.__tela_evento = TelaEvento(self)
 
-
     def pega_evento_por_titulo(self, titulo: str):
         for evento in self.__eventos:
             if(evento._Evento__titulo == titulo):
@@ -53,11 +52,14 @@ class ControladorEvento:
 
         if(evento is not None):
             novos_dados_evento = self.__tela_evento.altera_dados_evento()
+
             evento._Evento__titulo = novos_dados_evento["titulo"]
             evento._Evento__data = novos_dados_evento["data"]
             evento._Evento__horario_inicio = novos_dados_evento["horario_inicio"]
             evento._Evento__local = novos_dados_evento["local"]
             evento._Evento__capacidade_max = novos_dados_evento["capacidade_max"]
+
+            self.__tela_evento.mostra_mensagem("Evento alterado com sucesso.")
             self.listar_eventos()
         else:
             self.__tela_evento.mostra_mensagem("ATENÇÃO: Este evento não existe.")
@@ -75,16 +77,24 @@ class ControladorEvento:
             self.__tela_evento.mostra_mensagem("ATENÇÃO: Não existe nenhum evento.")
 
     def relatório_ranking_evento(self):
-        eventos_ranking = self.__eventos.copy()
-        for evento in self.__eventos:
-            for evento_ranking in eventos_ranking:
-                if len(evento.participantes) > len(evento_ranking.participantes):
-                    anterior = eventos_ranking[eventos_ranking.index(evento_ranking)]
-                    eventos_ranking[0] = evento
-                    #ir reordenando a lista de eventos_ranking
-        return eventos_ranking
+        if len(self.__eventos) != 0:
+            ranking = 0
+            lista_ranking = []
+            eventos_ranking = self.__eventos.copy()
+            eventos_ranking.sort(reverse=True, key=lambda evento: len(evento._Evento__organizadores))
 
-#------------------------------------- ORGANIZADORES --------------------------------------
+            self.__tela_evento.mensagem_ranking()
+
+            for evento in eventos_ranking:
+                ranking += 1
+                lista_ranking.append(evento._Evento__titulo) 
+                self.__tela_evento.mostra_ranking(ranking, evento._Evento__titulo, len(evento._Evento__organizadores))
+
+        else:
+            self.__tela_evento.mostra_mensagem("ATENÇÃO: Não existe nenhum evento.")
+
+
+#------------------------------------- ORGANIZADORES --------------------------------------#
 
     def adicionar_organizador(self):
         self.listar_eventos()
@@ -131,13 +141,14 @@ class ControladorEvento:
     def nomes_organizadores(self, evento):
         lista_organizadores = evento._Evento__organizadores
         lista_nomes = []
-        print(lista_organizadores)
+
         for organizador in lista_organizadores:
             lista_nomes.append(organizador._Pessoa__nome) 
             print(lista_nomes)
+
         return lista_nomes
 
-#------------------------------------ TELA --------------------------------------
+#------------------------------------ TELA --------------------------------------#
 
     def abre_tela(self):
         lista_opcoes = {1: self.adicionar_evento, 2:self.remover_evento, 3:self.alterar_evento, 

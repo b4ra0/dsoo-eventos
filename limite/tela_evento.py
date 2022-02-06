@@ -75,9 +75,15 @@ class TelaEvento(TelaAbstrata):
         titulo = input("Título do evento que deseja selecionar: ")
         return titulo
 
-    def mostra_ranking(self, ranking, dados_evento):
-        print("RANKING DE EVENTOS POR PARTICIPANTES")
-        print(ranking, dados_evento["titulo"])
+    def mensagem_ranking(self):
+        print("\n")
+        print("----- RANKING DE EVENTOS POR PARTICIPANTES -----")
+        print("\n")
+
+    def mostra_ranking(self, ranking, titulo, n_participantes):
+        print(ranking ,"-", titulo)
+        print("  Nº de participantes:", n_participantes)
+        print("\n")
 
     def mostra_mensagem(self, msg):
         print(msg)
