@@ -23,6 +23,7 @@ class ControladorEvento:
 
     def adicionar_evento(self):
         dados_evento = self.__tela_evento.pega_dados_evento()
+
         print("Dados evento", dados_evento)
         pessoa = self.__controlador_principal.controlador_pessoa.busca_pessoa(dados_evento["organizador"])
         #ver situação do nome errado
@@ -33,6 +34,7 @@ class ControladorEvento:
 
     def remover_evento(self):
         self.listar_eventos()
+
         titulo_evento = self.__tela_evento.seleciona_evento()
         evento = self.pega_evento_por_titulo(titulo_evento)
 
@@ -40,11 +42,13 @@ class ControladorEvento:
             self.__eventos.remove(evento)
             self.__tela_evento.mostra_mensagem("O evento foi removido com sucesso")
             self.listar_eventos()
+
         else:
             self.__tela_evento.mostra_mensagem("ATENÇÃO: Este evento não existe.")
 
     def alterar_evento(self):
         self.listar_eventos()
+
         titulo_evento = self.__tela_evento.seleciona_evento()
         evento = self.pega_evento_por_titulo(titulo_evento)
 

@@ -60,6 +60,7 @@ class ControladorPessoa():
         else:
             self.__tela_pessoa.mostra_mensagem("ATENÇÃO: Pessoa não existente")
 
+
     def listar_pessoa(self):
         if len(self.__pessoas) != 0:
             for pessoa in self.__pessoas:
