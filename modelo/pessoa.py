@@ -1,6 +1,6 @@
 
 class Pessoa:
-    def __init__(self, nome: str, cpf: int, data_nascimento: str, endereco: str, vacina: int):
+    def __init__(self, nome: str, cpf: str, data_nascimento: str, endereco: str, vacina: int):
         self.__nome = nome
         self.__cpf = cpf
         self.__data_nascimento = data_nascimento
@@ -32,7 +32,7 @@ class Pessoa:
         self.__nome = nome
 
     @cpf.setter
-    def cpf(self, cpf: int):
+    def cpf(self, cpf: str):
         self.__cpf = cpf
 
     @vacina.setter

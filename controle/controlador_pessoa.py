@@ -24,11 +24,19 @@ class ControladorPessoa():
     def adicionar_pessoa(self):
 
         dados_pessoa = self.__tela_pessoa.pega_dados_pessoa()
-        #verificar se já existe outra pessoa com o nome
-        pessoa = Pessoa(dados_pessoa["nome"], dados_pessoa["cpf"], 
-                              dados_pessoa["data_nascimento"], dados_pessoa["endereco"], dados_pessoa["vacina"])
+        lista_nomes = self.nomes_pessoas()
+        if dados_pessoa["nome"] not in lista_nomes:
+            if dados_pessoa["vacina"] == "1" or dados_pessoa["vacina"] == "0":
+                pessoa = Pessoa(dados_pessoa["nome"], dados_pessoa["cpf"], 
+                                    dados_pessoa["data_nascimento"], dados_pessoa["endereco"], dados_pessoa["vacina"])
 
-        self.__pessoas.append(pessoa)
+                self.__pessoas.append(pessoa)
+                self.__tela_pessoa.mostra_mensagem("Pessoa adicionada com sucesso")
+            else:
+                self.__tela_pessoa.mostra_mensagem("ATENÇÃO: A vacina precisa ser 0 ou 1")
+        else:
+            self.__tela_pessoa.mostra_mensagem("ATENÇÃO: O nome desta pessoa já está sendo utilizado!")
+            self.abre_tela()
 
     def alterar_pessoa(self):
         self.listar_pessoa()
@@ -68,7 +76,12 @@ class ControladorPessoa():
         else:
             self.__tela_pessoa.mostra_mensagem("ATENÇÃO: Não existe nenhuma pessoa.")
 
-            #Lista participantes e organizadores
+    def nomes_pessoas(self):
+        lista_nomes = []
+        for pessoa in self.__pessoas:
+            lista_nomes.append(pessoa.nome) 
+
+        return lista_nomes
 
     def retornar(self):
         self.__controlador_principal.abre_tela()
