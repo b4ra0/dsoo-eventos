@@ -68,7 +68,7 @@ class TelaEvento(TelaAbstrata):
         print("LOCAL DO EVENTO: ", dados_evento["local"])
         print("CAPACIDADE MÁXIMA DO EVENTO: ", dados_evento["capacidade_max"])
         print("ORGANIZADORES DO EVENTO: ", ', '.join(dados_evento["organizadores"]))
-        #print("PARTICIPANTES DO EVENTO: ",  ', '.join(dados_evento["participantes"]))
+        print("PARTICIPANTES DO EVENTO: ",  ', '.join(dados_evento["participantes"]))
         print("\n")
 
     def seleciona_evento(self):

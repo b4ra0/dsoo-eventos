@@ -23,19 +23,49 @@ class ControladorPresenca():
         evento = self.__controlador_principal.controlador_evento.pega_evento_por_titulo(titulo_evento)
         if evento is not None:
             participante = self.__controlador_principal.controlador_pessoa.busca_pessoa_pelo_nome()
-            evento.add_participante(participante)
+            if participante not in evento._Evento__participantes:
+                if (participante._Pessoa__vacina) == 1:
+                    evento._Evento__participantes.append(participante)
+                    self.__tela_evento.mostra_mensagem("Participante adicionado com sucesso!!")
+                else:
+                    self.__tela_evento.mostra_mensagem("ATENÇÃO: Você precisa estar vacinado ou com o teste negativo")
+                    dados_teste = self.__tela_presenca.tela_teste()
+                    if dados_teste["resultado"] != "1" and dados_teste["horas"] <= 72:
+                        evento._Evento__participantes.append(participante)
+                        print("Participante adicionado com sucesso!!")
+                    else:
+                        self.__tela_evento.mostra_mensagem("ATENÇÃO: Seu teste de COVID-19 deu positivo, você não pode entrar!")
+            else:
+                self.__tela_evento.mostra_mensagem("ATENÇÃO: Essa pessoa já é um participante deste evento")
         else:
            self.__tela_evento.mostra_mensagem("ATENÇÃO: Esse evento não existe.")
-        
-        
-    def verificar_vacina(self):
-        pass
     
 
 
     def adicionar_saida(self):
-        pessoa_saindo = self.__tela_presenca.seleciona_pessoa()
-        self.__controlador_pessoa.buscar_pessoa(self, pessoa_saindo)
+        self.__controlador_principal.controlador_evento.listar_eventos()
+        titulo_evento = self.__tela_evento.seleciona_evento()
+        evento = self.__controlador_principal.controlador_evento.pega_evento_por_titulo(titulo_evento)
+        if evento is not None:
+            participante = self.__controlador_principal.controlador_pessoa.busca_pessoa_pelo_nome()
+            if participante in evento._Evento__participantes:
+                evento._Evento__participantes.remove(participante)
+                self.__tela_evento.mostra_mensagem("Participante removido com sucesso!!")
+            else:
+                self.__tela_evento.mostra_mensagem("ATENÇÃO: Essa pessoa não é um participante deste evento")
+        else:
+           self.__tela_evento.mostra_mensagem("ATENÇÃO: Esse evento não existe.")
+
+
+    def nomes_participantes(self, evento):
+        lista_participantes = evento._Evento__participantes
+        lista_nomes = []
+        if len (evento._Evento__participantes) != 0:
+            for participante in lista_participantes:
+                lista_nomes.append(participante._Pessoa__nome)
+
+        return lista_nomes
+    
 
     def retornar(self):
         self.__controlador_principal.abre_tela()

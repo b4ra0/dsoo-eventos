@@ -26,7 +26,7 @@ class ControladorPessoa():
 
         dados_pessoa = self.__tela_pessoa.pega_dados_pessoa()
         #verificar se já existe outra pessoa com o nome
-        pessoa = Participante(dados_pessoa["tipo"], dados_pessoa["nome"], dados_pessoa["cpf"], 
+        pessoa = Pessoa(dados_pessoa["tipo"], dados_pessoa["nome"], dados_pessoa["cpf"], 
                               dados_pessoa["data_nascimento"], dados_pessoa["endereco"], dados_pessoa["vacina"])
 
         self.__pessoas.append(pessoa)
