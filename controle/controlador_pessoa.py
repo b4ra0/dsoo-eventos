@@ -25,7 +25,7 @@ class ControladorPessoa():
 
         dados_pessoa = self.__tela_pessoa.pega_dados_pessoa()
         #verificar se já existe outra pessoa com o nome
-        pessoa = Pessoa(dados_pessoa["tipo"], dados_pessoa["nome"], dados_pessoa["cpf"], 
+        pessoa = Pessoa(dados_pessoa["nome"], dados_pessoa["cpf"], 
                               dados_pessoa["data_nascimento"], dados_pessoa["endereco"], dados_pessoa["vacina"])
 
         self.__pessoas.append(pessoa)
@@ -37,7 +37,6 @@ class ControladorPessoa():
 
         if(pessoa is not None):
             novos_dados_pessoa = self.__tela_pessoa.pega_dados_pessoa()
-            pessoa.tipo = novos_dados_pessoa["tipo"]
             pessoa.nome = novos_dados_pessoa["nome"]
             pessoa.cpf = novos_dados_pessoa["cpf"]
             pessoa.data_nascimento = novos_dados_pessoa["data_nascimento"]
@@ -63,8 +62,8 @@ class ControladorPessoa():
     def listar_pessoa(self):
         if len(self.__pessoas) != 0:
             for pessoa in self.__pessoas:
-                self.__tela_pessoa.mostra_pessoa({"tipo": pessoa.tipo, "cpf": pessoa.cpf, 
-                                                  "nome": pessoa.nome, "data_nascimento": pessoa.data_nascimento, 
+                self.__tela_pessoa.mostra_pessoa({"cpf": pessoa.cpf, "nome": pessoa.nome, 
+                                                  "data_nascimento": pessoa.data_nascimento, 
                                                   "endereco": pessoa.endereco, "vacina": pessoa.vacina})
         else:
             self.__tela_pessoa.mostra_mensagem("ATENÇÃO: Não existe nenhuma pessoa.")

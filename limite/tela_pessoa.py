@@ -19,14 +19,13 @@ class TelaPessoa(TelaAbstrata):
 
     def pega_dados_pessoa(self):
         print("-------- DADOS PESSOA ----------")
-        tipo = input("Tipo da pessoa (1 - Participante, 2 - Organizador): ")
         nome = input("Nome: ")
         cpf = input("CPF: ")
         data_nascimento = input("Data de Nascimento: ")
         endereco = input("Endereço: ")
-        vacina = input("Vacina (0: False - 1: True): ")
+        vacina = input("Duas doses da Vacina (0: False - 1: True): ")
 
-        return {"tipo": tipo, "nome": nome, "cpf": cpf, "data_nascimento": data_nascimento, 
+        return {"nome": nome, "cpf": cpf, "data_nascimento": data_nascimento, 
                 "endereco": endereco, "vacina": vacina}
 
     def mostra_pessoa(self, dados_pessoa):
@@ -34,7 +33,7 @@ class TelaPessoa(TelaAbstrata):
         print("CPF DA PESSOA: ", dados_pessoa["cpf"])
         print("DATA DE NASCIMENTO DA PESSOA: ", dados_pessoa["data_nascimento"])
         print("ENDEREÇO DA PESSOA: ", dados_pessoa["endereco"])
-        print("SITUAÇÃO DE VACINA: ", dados_pessoa["vacina"])
+        print("DUAS DOSES DA VACINA: ", dados_pessoa["vacina"])
         print("\n")
         
     def seleciona_pessoa(self):

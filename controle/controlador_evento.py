@@ -25,14 +25,29 @@ class ControladorEvento:
                                           "organizadores": organizadores, "participantes": participantes})
 
     def adicionar_evento(self):
-        dados_evento = self.__tela_evento.pega_dados_evento()
+            dados_evento = self.__tela_evento.pega_dados_evento()
+            pessoa = self.__controlador_principal.controlador_pessoa.busca_pessoa(dados_evento["organizadores"])
+            lista_titulos = self.titulos_eventos()
+            if dados_evento["titulo"] not in lista_titulos:
+                if dados_evento["capacidade_max"].isnumeric() == True:
+                    if pessoa is not None:
 
-        pessoa = self.__controlador_principal.controlador_pessoa.busca_pessoa(dados_evento["organizadores"])
-        #ver situação do nome errado
-        
-        evento = Evento(dados_evento["titulo"], dados_evento["data"], dados_evento["horario_inicio"], 
-                        dados_evento["local"], dados_evento["capacidade_max"], pessoa)
-        self.__eventos.append(evento)
+                        evento = Evento(dados_evento["titulo"], dados_evento["data"], dados_evento["horario_inicio"], 
+                                        dados_evento["local"], dados_evento["capacidade_max"], pessoa)
+                        self.__eventos.append(evento)
+                        self.__tela_evento.mostra_mensagem("Evento adicionado com sucesso!")
+                    else:
+                        self.__tela_evento.mostra_mensagem("ATENÇÃO: Essa pessoa não existe")
+                        self.__tela_evento.mostra_mensagem("O evento não foi adicionado.")
+                        self.abre_tela()
+                else:
+                    self.__tela_evento.mostra_mensagem("ATENÇÃO: A capacidade máxima precisa ser um número inteiro")
+                    self.__tela_evento.mostra_mensagem("O evento não foi adicionado.")
+                    self.abre_tela()
+            else:
+                self.__tela_evento.mostra_mensagem("ATENÇÃO: Este título já está sendo utilizado em outro evento")
+                self.__tela_evento.mostra_mensagem("O evento não foi adicionado.")
+                self.abre_tela()
 
     def remover_evento(self):
         self.listar_eventos()
@@ -53,12 +68,18 @@ class ControladorEvento:
 
         if(evento is not None):
             novos_dados_evento = self.__tela_evento.altera_dados_evento()
+            if novos_dados_evento["capacidade_max"].isnumeric() == True:
 
-            evento.titulo = novos_dados_evento["titulo"]
-            evento.data = novos_dados_evento["data"]
-            evento.horario_inicio = novos_dados_evento["horario_inicio"]
-            evento.local = novos_dados_evento["local"]
-            evento.capacidade_max = novos_dados_evento["capacidade_max"]
+                evento.titulo = novos_dados_evento["titulo"]
+                evento.data = novos_dados_evento["data"]
+                evento.horario_inicio = novos_dados_evento["horario_inicio"]
+                evento.local = novos_dados_evento["local"]
+                evento.capacidade_max = int(novos_dados_evento["capacidade_max"])
+
+            else:
+                self.__tela_evento.mostra_mensagem("ATENÇÃO: A capacidade máxima precisa ser um número inteiro.")
+                self.__tela_evento.mostra_mensagem("O evento não foi alterado.")
+                self.abre_tela()
 
             self.__tela_evento.mostra_mensagem("Evento alterado com sucesso.")
             self.listar_eventos()
@@ -76,6 +97,14 @@ class ControladorEvento:
                                                   "organizadores": organizadores, "participantes": participantes})
         else:
             self.__tela_evento.mostra_mensagem("ATENÇÃO: Não existe nenhum evento.")
+
+    def titulos_eventos(self):
+        lista_titulos = []
+
+        for evento in self.__eventos:
+            lista_titulos.append(evento.titulo) 
+
+        return lista_titulos
 
     def relatório_ranking_evento(self):
         if len(self.__eventos) != 0:
@@ -113,10 +142,10 @@ class ControladorEvento:
                 else:
                     self.__tela_evento.mostra_mensagem("ATENÇÃO: Esta pessoa já é organizadora deste evento.")
             else:
-                self.adicionar_organizador()
+                self.abre_tela_2()
         else:
            self.__tela_evento.mostra_mensagem("ATENÇÃO: Esse evento não existe.")
-           self.adicionar_organizador()
+           self.abre_tela_2()
     
     def remover_organizador(self):
         self.listar_eventos()
@@ -134,10 +163,10 @@ class ControladorEvento:
                 else:
                     self.__tela_evento.mostra_mensagem("ATENÇÃO: Esta pessoa não é organizadora deste evento.")
             else:
-                self.remover_organizador()
+                self.abre_tela_2()
         else:
            self.__tela_evento.mostra_mensagem("ATENÇÃO: Esse evento não existe.")
-           self.remover_organizador()
+           self.abre_tela_2()
 
     def nomes_organizadores(self, evento):
         lista_organizadores = evento.organizadores

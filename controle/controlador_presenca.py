@@ -22,23 +22,29 @@ class ControladorPresenca():
         titulo_evento = self.__tela_evento.seleciona_evento()
         evento = self.__controlador_principal.controlador_evento.pega_evento_por_titulo(titulo_evento)
         if evento is not None:
-            participante = self.__controlador_principal.controlador_pessoa.busca_pessoa_pelo_nome()
-            if participante not in evento.participantes:
-                if (participante.vacina) == 1:
-                    evento.participantes.append(participante)
-                    self.__tela_evento.mostra_mensagem("Participante adicionado com sucesso!!")
-                else:
-                    self.__tela_evento.mostra_mensagem("ATENÇÃO: Você precisa estar vacinado ou com o teste negativo")
-                    dados_teste = self.__tela_presenca.tela_teste()
-                    if dados_teste["resultado"] != "1" and dados_teste["horas"] <= 72:
-                        evento.participantes.append(participante)
-                        print("Participante adicionado com sucesso!!")
+            if int(evento.capacidade_max) > len(evento.participantes):
+                participante = self.__controlador_principal.controlador_pessoa.busca_pessoa_pelo_nome()
+                if participante not in evento.participantes:
+                    if int(participante.vacina) == 1:
+                        evento.add_participante(participante)
+                        self.__tela_evento.mostra_mensagem("Participante adicionado com sucesso!!")
                     else:
-                        self.__tela_evento.mostra_mensagem("ATENÇÃO: Seu teste de COVID-19 deu positivo, você não pode entrar!")
+                        self.__tela_evento.mostra_mensagem("ATENÇÃO: Você precisa estar vacinado ou com o teste negativo")
+                        dados_teste = self.__tela_presenca.tela_teste()
+                        if dados_teste["resultado"] != "1":
+                                if dados_teste["horas"] <= 72:
+                                    evento.add_participante(participante)
+                                    self.__tela_evento.mostra_mensagem("Participante adicionado com sucesso!!")
+                                else:
+                                    self.__tela_evento.mostra_mensagem("ATENÇÃO: Seu teste de COVID-19 não é mais válido, deve ser feito 72h antes do evento!")
+                        else:
+                            self.__tela_evento.mostra_mensagem("ATENÇÃO: Seu teste de COVID-19 deu positivo, você não pode entrar!")
+                else:
+                    self.__tela_evento.mostra_mensagem("ATENÇÃO: Essa pessoa já é um participante deste evento!")
             else:
-                self.__tela_evento.mostra_mensagem("ATENÇÃO: Essa pessoa já é um participante deste evento")
+                self.__tela_evento.mostra_mensagem("ATENÇÃO: Limite de participantes atingido")
         else:
-           self.__tela_evento.mostra_mensagem("ATENÇÃO: Esse evento não existe.")
+           self.__tela_evento.mostra_mensagem("ATENÇÃO: Esse evento não existe!")
     
 
 
@@ -49,7 +55,7 @@ class ControladorPresenca():
         if evento is not None:
             participante = self.__controlador_principal.controlador_pessoa.busca_pessoa_pelo_nome()
             if participante in evento.participantes:
-                evento.participantes.remove(participante)
+                evento.del_participante(participante)
                 self.__tela_evento.mostra_mensagem("Participante removido com sucesso!!")
             else:
                 self.__tela_evento.mostra_mensagem("ATENÇÃO: Essa pessoa não é um participante deste evento")
