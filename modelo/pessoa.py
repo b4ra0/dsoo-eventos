@@ -1,6 +1,6 @@
 
 class Pessoa:
-    def __init__(self, nome: str, cpf: str, data_nascimento: str, endereco: str, vacina: int):
+    def __init__(self, nome: str, cpf: str, data_nascimento: str, endereco: str, vacina: bool):
         self.__nome = nome
         self.__cpf = cpf
         self.__data_nascimento = data_nascimento

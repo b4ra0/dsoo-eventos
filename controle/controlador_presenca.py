@@ -25,14 +25,14 @@ class ControladorPresenca():
             if int(evento.capacidade_max) > len(evento.participantes):
                 participante = self.__controlador_principal.controlador_pessoa.busca_pessoa_pelo_nome()
                 if participante not in evento.participantes:
-                    if int(participante.vacina) == 1:
+                    if int(participante.vacina) == True:
                         evento.add_participante(participante)
                         self.__tela_evento.mostra_mensagem("Participante adicionado com sucesso!!")
                     else:
                         self.__tela_evento.mostra_mensagem("ATENÇÃO: Você precisa estar vacinado ou com o teste negativo")
                         dados_teste = self.__tela_presenca.tela_teste()
-                        if dados_teste["resultado"] != "1":
-                                if dados_teste["horas"] <= 72:
+                        if dados_teste["resultado"] != True:
+                                if int(dados_teste["horas"]) <= 72:
                                     evento.add_participante(participante)
                                     self.__tela_evento.mostra_mensagem("Participante adicionado com sucesso!!")
                                 else:

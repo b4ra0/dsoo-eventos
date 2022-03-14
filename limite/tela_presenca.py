@@ -1,26 +1,42 @@
 from limite.tela_abstrata import TelaAbstrata
+import PySimpleGUI as sg
 
 class TelaPresenca(TelaAbstrata):
 
   def tela_opcoes(self):
-    print("-------- PRESENÇA ----------")
-    print("Escolha a opcao")
-    print("1 - Adicionar entrada")
-    print("2 - Adicionar saída")
-    print("0 - Retornar")
+    layout = [
+      [sg.Text('PRESENÇA')],
+      [sg.Submit(button_text=('Adicionar entrada'), key='1')],
+      [sg.Submit(button_text=('Adicionar saída'), key='2')],
+      [sg.Submit(button_text=('Retornar'), key='0')],
+    ]
 
-    opcao = self.le_num_inteiro("Escolha uma opção: ", [1, 2, 0])
-    return opcao
+    window = sg.Window('Tela presença', element_justification='center').Layout(layout)
+    button, values = window.Read()
+    window.close()
+    return int(button)
 
   def tela_teste(self):
-    resultado = input("Digite o resultado do teste (0 - Negativo, 1 - Positivo): ")
-    horas = int(input("Há quantas horas você fez o teste: "))
-
-    return {"resultado": resultado, "horas": horas}
+    layout = [
+        [sg.Text('Resultado'), sg.Radio('Negativo', "RADIO1", default=True, key="resultado"), sg.Radio('Positivo', "RADIO1", key="resultado_inverso")],
+        [sg.Text('Há quantas horas você fez o teste: '), sg.InputText(key='horas')],
+        [sg.Button('Ok')],
+    ]
+    window = sg.Window('Teste do COVID-19', element_justification='center').Layout(layout)
+    button, values = window.Read()
+    window.close()
+    return values
 
   def le_num_inteiro(self, mensagem: str = "", inteiros_validos=None):
       return super().le_num_inteiro(mensagem, inteiros_validos)
     
   def seleciona_pessoa(self):
-    nome = input("Nome da pessoa que deseja selecionar: ")
-    return nome
+    layout = [
+        [sg.Text('Nome'), sg.InputText(key='nome')],
+        [sg.Button('Buscar')],
+    ]
+    window = sg.Window('Seleciona pessoa', element_justification='center').Layout(layout)
+    a, values = window.Read()
+    window.close()
+    print (values='nome'),
+    return values

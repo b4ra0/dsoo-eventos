@@ -7,6 +7,7 @@ class ControladorPessoa():
         self.__tela_pessoa = TelaPessoa()
         self.__controlador_principal = controlador_principal
 
+
     def busca_pessoa(self, nome: str):
         for pessoa in self.__pessoas:
             if(pessoa.nome == nome):
@@ -26,14 +27,10 @@ class ControladorPessoa():
         dados_pessoa = self.__tela_pessoa.pega_dados_pessoa()
         lista_nomes = self.nomes_pessoas()
         if dados_pessoa["nome"] not in lista_nomes:
-            if dados_pessoa["vacina"] == "1" or dados_pessoa["vacina"] == "0":
-                pessoa = Pessoa(dados_pessoa["nome"], dados_pessoa["cpf"], 
-                                    dados_pessoa["data_nascimento"], dados_pessoa["endereco"], dados_pessoa["vacina"])
-
-                self.__pessoas.append(pessoa)
-                self.__tela_pessoa.mostra_mensagem("Pessoa adicionada com sucesso")
-            else:
-                self.__tela_pessoa.mostra_mensagem("ATENÇÃO: A vacina precisa ser 0 ou 1")
+            pessoa = Pessoa(dados_pessoa["nome"], dados_pessoa["cpf"], 
+                                dados_pessoa["data_nascimento"], dados_pessoa["endereco"], dados_pessoa["vacina_completa"])
+            self.__pessoas.append(pessoa)
+            self.__tela_pessoa.mostra_mensagem("Pessoa adicionada com sucesso")
         else:
             self.__tela_pessoa.mostra_mensagem("ATENÇÃO: O nome desta pessoa já está sendo utilizado!")
             self.abre_tela()
@@ -49,7 +46,7 @@ class ControladorPessoa():
             pessoa.cpf = novos_dados_pessoa["cpf"]
             pessoa.data_nascimento = novos_dados_pessoa["data_nascimento"]
             pessoa.endereco = novos_dados_pessoa["endereco"]
-            pessoa.vacina = novos_dados_pessoa["vacina"]
+            pessoa.vacina = novos_dados_pessoa["vacina_completa"]
             self.listar_pessoa()
         else:
             self.__tela_pessoa.mostra_mensagem("ATENÇÃO: Pessoa não existente")

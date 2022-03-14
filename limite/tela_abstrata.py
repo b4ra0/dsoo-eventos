@@ -3,6 +3,8 @@ from multiprocessing.sharedctypes import Value
 
 class TelaAbstrata(ABC):
 
+    #construtor abstrato
+    
     @abstractmethod
     def le_num_inteiro(self, mensagem: str = "", inteiros_validos = None):
         while True:

@@ -68,18 +68,19 @@ class ControladorEvento:
 
         if(evento is not None):
             novos_dados_evento = self.__tela_evento.altera_dados_evento()
-            if novos_dados_evento["capacidade_max"].isnumeric() == True:
+            print(novos_dados_evento)
+            # if novos_dados_evento["capacidade_max"].isnumeric() == True:
 
-                evento.titulo = novos_dados_evento["titulo"]
-                evento.data = novos_dados_evento["data"]
-                evento.horario_inicio = novos_dados_evento["horario_inicio"]
-                evento.local = novos_dados_evento["local"]
-                evento.capacidade_max = int(novos_dados_evento["capacidade_max"])
+            evento.titulo = novos_dados_evento["titulo"]
+            evento.data = novos_dados_evento["data"]
+            evento.horario_inicio = novos_dados_evento["horario_inicio"]
+            evento.local = novos_dados_evento["local"]
+            evento.capacidade_max = int(novos_dados_evento["capacidade_max"])
 
-            else:
-                self.__tela_evento.mostra_mensagem("ATENÇÃO: A capacidade máxima precisa ser um número inteiro.")
-                self.__tela_evento.mostra_mensagem("O evento não foi alterado.")
-                self.abre_tela()
+            # else:
+            #     self.__tela_evento.mostra_mensagem("ATENÇÃO: A capacidade máxima precisa ser um número inteiro.")
+            #     self.__tela_evento.mostra_mensagem("O evento não foi alterado.")
+            #     self.abre_tela()
 
             self.__tela_evento.mostra_mensagem("Evento alterado com sucesso.")
             self.listar_eventos()
@@ -98,6 +99,8 @@ class ControladorEvento:
         else:
             self.__tela_evento.mostra_mensagem("ATENÇÃO: Não existe nenhum evento.")
 
+        #mudar métodos para o Evento
+
     def titulos_eventos(self):
         lista_titulos = []
 
@@ -114,11 +117,17 @@ class ControladorEvento:
             eventos_ranking.sort(reverse=True, key=lambda evento: len(evento.participantes))
 
             self.__tela_evento.mensagem_ranking()
-
+            tela = []
             for evento in eventos_ranking:
                 ranking += 1
                 lista_ranking.append(evento.titulo) 
-                self.__tela_evento.mostra_ranking(ranking, evento.titulo, len(evento.participantes))
+                
+                componentes = self.__tela_evento.mostra_ranking(ranking, evento.titulo, len(evento.participantes))
+                componentes += tela
+                
+                
+                
+            self.__tela_evento.monta_tela()
 
         else:
             self.__tela_evento.mostra_mensagem("ATENÇÃO: Não existe nenhum evento.")
